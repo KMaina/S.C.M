@@ -1,5 +1,8 @@
 # import os
 from flask import Flask, jsonify, redirect
+from flask_graphql import GraphQLView
+
+from schema import schema
 # from flask_restful import Api
 # from flask_jwt_extended import JWTManager
 # from flask_cors import CORS
@@ -24,6 +27,14 @@ def create_app(config_name):
     app.config.from_object(app_config[config_name])
     app.config.from_pyfile('config.py')
 
+    app.add_url_rule(
+        '/api',
+        view_func=GraphQLView.as_view(
+            'api',
+            schema=schema,
+            graphiql=True   # for having the GraphiQL interface
+        )
+    )
     # create tables in test and main DB
     # with app.app_context():
     #     db.db_connection()
