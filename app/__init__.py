@@ -5,17 +5,18 @@ from flask import Flask, jsonify, redirect
 # from flask_cors import CORS
 
 # # v1 imports
-# from app.api.v1.resource.views.views_users import NewUsers, GetAllUsers, GetUser, LoginUser
+# from app.api.v1.resource.views.views_users import NewUsers, GetAllUsers, GetUser, LoginUser # noqa
 # from app.api.v1.resource.views.views_products import NewProducts, GetProduct
 # from app.api.v1.resource.views.views_sales import MakeSale, GetSpecificSale
 
 # # v2 imports
 # from app.api.v2.resource.models import db
-# from app.api.v2.resource.views.views_users import LoginUsers, RegisterUsers, GetAllUser, GetUsers
+# from app.api.v2.resource.views.views_users import LoginUsers, RegisterUsers, GetAllUser, GetUsers # noqa
 # from app.api.v2.resource.views.views_products import NewProduct, EditProducts
 # from app.api.v2.resource.views.views_sales import MakeSales, GetSale
 
 from instance.config import app_config
+
 
 def create_app(config_name):
     """Factory initialization for the app"""
@@ -33,7 +34,7 @@ def create_app(config_name):
     # @app.errorhandler(400)
     # def bad_request_error(error):
     #     """400 error handler."""
-    #     return jsonify({"error": "A bad request was sent to the server."}), 400
+    #     return jsonify({"error": "A bad request was sent to the server."}), 400 # noqa
 
     # # Catch all 404 errors
     # @app.errorhandler(404)
@@ -72,7 +73,7 @@ def create_app(config_name):
 
     # # Products Resource v2
     # api_endpoint.add_resource(NewProduct, '/api/v2/products')
-    # api_endpoint.add_resource(EditProducts, '/api/v2/products/<int:productId>')
+    # api_endpoint.add_resource(EditProducts, '/api/v2/products/<int:productId>') # noqa
 
     # # Sales Resource v2
     # api_endpoint.add_resource(MakeSales, '/api/v2/sales')
@@ -86,6 +87,6 @@ def create_app(config_name):
 
     # @app.route('/')
     # def root():
-    #     return redirect('https://documenter.getpostman.com/view/4157501/RWgxvvVE')
+    #     return redirect('https://documenter.getpostman.com/view/4157501/RWgxvvVE') # noqa
 
     return app
