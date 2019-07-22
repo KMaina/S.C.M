@@ -6,3 +6,4 @@ Flask-GraphQL==2.0.0
 flake8==3.7.7
 graphene==2.1.6
 flask-script==2.0.6
+pytest==5.0.1
