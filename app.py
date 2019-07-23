@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_graphql import GraphQLView
+# from flask_graphql import GraphQLView
 
 # from schema import schema
 from instance.config import app_config
