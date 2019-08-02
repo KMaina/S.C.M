@@ -34,12 +34,14 @@ if os.getenv('FLASK_ENV') == 'testing':
     database_url = os.getenv('DB_TESTING')
 elif os.getenv('FLASK_ENV') == 'development':
     database_url = os.getenv('DATABASE_URL')
+else:
+    print('shit')
 
 sys.path.append(os.getcwd())
 config.set_main_option('sqlalchemy.url', database_url)
 
 from helpers.database import Base
-from api.add.models import Location
+from api.user.models import User
 
 target_metadata = Base.metadata
 
