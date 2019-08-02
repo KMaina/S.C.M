@@ -39,7 +39,7 @@ sys.path.append(os.getcwd())
 config.set_main_option('sqlalchemy.url', database_url)
 
 from helpers.database import Base
-from api.add.models import Location
+from api.user.models import User
 
 target_metadata = Base.metadata
 
