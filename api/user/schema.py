@@ -4,7 +4,7 @@ import graphene
 from graphql import GraphQLError
 from graphene_sqlalchemy import SQLAlchemyObjectType
 from sqlalchemy import func
-from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.security import check_password_hash
 import jwt
 
 from .models import User as UserModel
@@ -39,14 +39,9 @@ class CreateUser(graphene.Mutation):
 
     def mutate(self, info, **kwargs):
         name = kwargs.get('name')
-        user_password = validate_password(kwargs.get('password'))
-        confirm_pasword = kwargs.get('confirm_password')
-        if user_password != confirm_pasword:
-            raise GraphQLError('Passwords do not match')
-        hashed_password = generate_password_hash(user_password,
-                                                 method='pbkdf2:sha256',
-                                                 salt_length=12)
-        user = UserModel(name, hashed_password)
+        user_password = validate_password(kwargs.get('password'),
+                                          kwargs.get('confirm_password'))
+        user = UserModel(name, user_password)
         user.save()
         return CreateUser(user=user)
 

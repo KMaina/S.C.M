@@ -1,9 +1,11 @@
 from graphql import GraphQLError
 
 
-def validate_password(password):
+def validate_password(password, confirm_password):
     if len(password) < 6:
         raise GraphQLError('The length of the password should be more than 6')
+    if password != confirm_password:
+        raise GraphQLError('Passwords do not match')
     return password
 
 

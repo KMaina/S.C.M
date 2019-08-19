@@ -1,3 +1,5 @@
+from werkzeug.security import generate_password_hash
+
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.schema import Sequence
 
@@ -20,4 +22,6 @@ class User(Base, Utility):
 
     def __init__(self, name, password):
         self.name = name
-        self.password = password
+        self.password = generate_password_hash(password,
+                                               method='pbkdf2:sha256',
+                                               salt_length=12)

@@ -1,6 +1,6 @@
 import os
 
-from instance.config import app_config
+from config.config import app_config
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
