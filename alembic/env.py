@@ -1,4 +1,5 @@
 from __future__ import with_statement
+import os, sys
 
 from logging.config import fileConfig
 
@@ -6,6 +7,9 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
+
+from helpers.database import Base
+from api.user.models import User
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -26,8 +30,6 @@ target_metadata = None
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
 
-import os, sys
-
 
 database_url = ''
 if os.getenv('FLASK_ENV') == 'testing':
@@ -38,8 +40,6 @@ elif os.getenv('FLASK_ENV') == 'development':
 sys.path.append(os.getcwd())
 config.set_main_option('sqlalchemy.url', database_url)
 
-from helpers.database import Base
-from api.add.models import Location
 
 target_metadata = Base.metadata
 
