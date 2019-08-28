@@ -8,8 +8,6 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from helpers.database import Base
-from api.user.models import User
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -40,6 +38,8 @@ elif os.getenv('FLASK_ENV') == 'development':
 sys.path.append(os.getcwd())
 config.set_main_option('sqlalchemy.url', database_url)
 
+from helpers.database import Base
+from api.user.models import User
 
 target_metadata = Base.metadata
 

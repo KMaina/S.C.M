@@ -64,7 +64,7 @@ class LoginUser(graphene.Mutation):
         check_password = check_password_hash(person_obj.password, password)
         if not check_password:
             raise GraphQLError('Error signing into the app')
-        payload = {'role': 'default', 'name': name}
+        payload = {'user_type': person_obj.user_type.value, 'name': name}
         user_token = jwt.encode(payload, key=os.getenv('SECRET_KEY'))
         token = user_token
         return LoginUser(token)
