@@ -1,7 +1,7 @@
 import enum
 
 
-class StateType(enum.Enum):
-    active = 'active'
-    archived = 'archived'
-    deleted = 'deleted'
+class UserType(enum.Enum):
+    default = 'default'
+    admin = 'admin'
+    super_admin = 'super_admin'
