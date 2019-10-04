@@ -8,6 +8,7 @@ from app import create_app
 from schema import schema
 from helpers.database import Base, engine, db_session
 from api.user.models import User
+from api.products.models import Product
 
 
 class TestConfiguration(unittest.TestCase):
@@ -27,11 +28,14 @@ class TestConfiguration(unittest.TestCase):
         with app.app_context():
             Base.metadata.create_all(bind=engine)
             command.stamp(self.alembic_configuration, 'head')
-            command.downgrade(self.alembic_configuration, '-1')
+            # command.downgrade(self.alembic_configuration, '-1')
             command.upgrade(self.alembic_configuration, 'head')
 
-            user = User(name="Ken", password="1234567")
+            user = User(name="Ken", password="1234567", user_type='default')
             user.save()
+            product = Product(name="Eggs", manufacturer="none", price=200,
+                              tax=0, UOM="none", user_id="1")
+            product.save()
             db_session.commit()
 
     def tearDown(self):
@@ -46,5 +50,14 @@ class CommonTestCases(TestConfiguration):
     def get_response(self, query, expected_response):
         response = self.app_test.post(
             '/api?query=' + query)
+        actual_response = json.loads(response.data)
+        self.assertEqual(actual_response, expected_response)
+
+    def get_response_with_token(self, query, expected_response):
+        # TODO: move token to .env
+        tk = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX3R5cGUiOiJkZWZhdWx0IiwibmFtZSI6IktlbiIsImlkIjoxfQ.6hHl1zeY9-z5HDjMS7YHRtiODmeFuP8yNjBA_jpiD_g' # noqa
+        headers = {'Authorization': tk}
+        response = self.app_test.post(
+            '/api?query=' + query, headers=headers)
         actual_response = json.loads(response.data)
         self.assertEqual(actual_response, expected_response)

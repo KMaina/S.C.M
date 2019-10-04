@@ -13,3 +13,7 @@ def validate_empty_fields(**kwargs):
     for kwarg in kwargs:
         if kwargs.get(kwarg) is None:
             raise GraphQLError('Fields should not be empty')
+
+
+def check_for_duplicate(query, field):
+    return True if query.filter_by(name=field).first() else False
