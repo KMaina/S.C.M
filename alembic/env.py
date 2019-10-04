@@ -40,6 +40,7 @@ config.set_main_option('sqlalchemy.url', database_url)
 
 from helpers.database import Base
 from api.user.models import User
+from api.products.models import Product
 
 target_metadata = Base.metadata
 

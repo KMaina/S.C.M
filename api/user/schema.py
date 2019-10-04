@@ -35,13 +35,15 @@ class CreateUser(graphene.Mutation):
         name = graphene.String(required=True)
         password = graphene.String(required=True)
         confirm_password = graphene.String(required=True)
+        user_type = graphene.String(required=True)
     user = graphene.Field(User)
 
     def mutate(self, info, **kwargs):
+        user_type = kwargs.get('user_type')
         name = kwargs.get('name')
         user_password = validate_password(kwargs.get('password'),
                                           kwargs.get('confirm_password'))
-        user = UserModel(name, user_password)
+        user = UserModel(name, user_password, user_type)
         user.save()
         return CreateUser(user=user)
 
@@ -64,7 +66,9 @@ class LoginUser(graphene.Mutation):
         check_password = check_password_hash(person_obj.password, password)
         if not check_password:
             raise GraphQLError('Error signing into the app')
-        payload = {'user_type': person_obj.user_type.value, 'name': name}
+        payload = {'user_type': person_obj.user_type.value,
+                   'name': name,
+                   'id': person_obj.id}
         user_token = jwt.encode(payload, key=os.getenv('SECRET_KEY'))
         token = user_token
         return LoginUser(token)

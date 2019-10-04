@@ -6,11 +6,12 @@ login_mutation = '''
     }
 '''
 
-login_mutation_response = {"data": {"loginUser": {"token": "b'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX3R5cGUiOiJkZWZhdWx0IiwibmFtZSI6IktlbiJ9.FV8PUtBAPLUsn-TXXR1RtGjcaUTcYdq7PmBwb0OT9BE'"}}}  # noqa
+login_mutation_response = {"data": {"loginUser": {"token": "b'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX3R5cGUiOiJkZWZhdWx0IiwibmFtZSI6IktlbiIsImlkIjoxfQ.6hHl1zeY9-z5HDjMS7YHRtiODmeFuP8yNjBA_jpiD_g'"}}}  # noqa
 
 sign_up_mutation = '''
     mutation{
-        createUser(name:"Ken", password:"1234567", confirmPassword:"1234567"){
+        createUser(name:"Ken", password:"1234567",
+                   confirmPassword:"1234567", userType:"default"){
         user{
             name
         }

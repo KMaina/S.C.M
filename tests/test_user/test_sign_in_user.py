@@ -10,7 +10,6 @@ class TestAuthMutation(TestConfiguration):
         CommonTestCases.get_response(self, sign_up_mutation, sign_up_response)
 
     def test_sign_in_users(self):
-        CommonTestCases.get_response(self, sign_up_mutation, sign_up_response)
         CommonTestCases.get_response(self,
                                      login_mutation,
                                      login_mutation_response)

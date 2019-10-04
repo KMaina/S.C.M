@@ -15,8 +15,9 @@ class User(Base, Utility):
     password = Column(String, nullable=False)
     user_type = Column(Enum(UserType), default='default')
 
-    def __init__(self, name, password):
+    def __init__(self, name, password, user_type):
         self.name = name
         self.password = generate_password_hash(password,
                                                method='pbkdf2:sha256',
                                                salt_length=12)
+        self.user_type = user_type

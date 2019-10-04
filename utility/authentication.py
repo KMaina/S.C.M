@@ -7,7 +7,11 @@ import jwt
 class Authentication():
 
     def get_token(self):
-        token = request.headers.get('Authorization')
+        # TODO: error handle token
+        try:
+            token = request.headers.get('Authorization')
+        except BaseException:
+            token = None
         return token
 
     def decode_token(self):
